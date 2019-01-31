@@ -1,0 +1,13 @@
+.layer {
+    transition: height 0.5s;
+}
+
+.layer-biscuit {
+    background-color: saddlebrown;
+}
+.layer-beze {
+    background-color: aquamarine;
+}
+.layer-curd {
+    background-color: snow;
+}

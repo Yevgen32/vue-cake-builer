@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cake builder</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="app">
+
+        <h1>Cake builder</h1>
+        <hr>
+        <button type="button"
+                class="btn btn-primary"
+                @click="addLayer"
+        >
+            add layer
+        </button>
+        <hr>
+        <div class="row ">
+            <div class="col-sm-6">
+                <div class="cake">
+                    <div class="layer"
+                         :class="'layer-' + layer.type"
+                         :style="{height: layer.height * 10 + 'px' }"
+                         v-for = "(layer, i) in layers"
+                         @click = "changeHeight(i, 1)"
+                         @contextmenu.prevent = "changeHeight(i, -1)"
+                    >
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <table class="table-bordered" v-show="hasLayers">
+                    <tr>
+                        <th>Type</th>
+                        <th>Height</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr v-for="(layer, i) in layers">
+                        <td>
+                            <select class="form-control" v-model="layers[i].type">
+                                <option :value="key"
+                                        v-for="(lt, key) in layersTypes"
+                                >
+                                    {{lt.label}}
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text"
+                                   class="form-control"
+                                   v-model.number="layers[i].height"
+                            >
+                        </td>
+                        <td>
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    @click="deleteLayer(i)"
+                            >
+                                delete layer
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <hr>
+
+
+        <footer v-show="hasLayers">
+            <span class="price">
+                {{price}}
+                0 грн
+            </span>
+            <button class="btn btn-warning">Buy now</button>
+        </footer>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
